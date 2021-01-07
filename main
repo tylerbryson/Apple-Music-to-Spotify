@@ -1,24 +1,12 @@
 import csv      # needed to access csv files
 import requests # needed for spotify API
-import json
 
-# https://medium.com/@adrian_cooney/how-to-move-from-apple-music-to-spotify-6d4192c634b0
+# References
+# https://medium.com/@adrian_cooney/how-to-move-from-apple-music-to-spotify-6d4192c634b0 - XML Guideline
 # https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-users-saved-tracks - Save Track for user
 # https://towardsdatascience.com/using-python-to-create-spotify-playlists-of-the-samples-on-an-album-e3f20187ee5e
 # https://www.dataquest.io/blog/python-api-tutorial/ - Python API tutorial
-
-# Generator, allows you to go one row at a time
-# Reader accesses each line
-with open("music_library.csv", 'r') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=",")
-   
-    # for loop to print each song ([0]) and artist ([1])
-    # for lines in csv_reader:
-    #    print(lines[0] + " ----- " + lines[1])
-
-
-# Access token 
-# https://stmorse.github.io/journal/spotify-api.html
+# https://stmorse.github.io/journal/spotify-api.html - Access token
 
 # client credentials for spotify api
 CLIENT_ID = #redacted
