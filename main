@@ -1,0 +1,47 @@
+import csv      # needed to access csv files
+import requests # needed for spotify API
+
+# references
+# https://stmorse.github.io/journal/spotify-api.html
+# https://medium.com/@adrian_cooney/how-to-move-from-apple-music-to-spotify-6d4192c634b0
+# https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-users-saved-tracks
+# https://towardsdatascience.com/using-python-to-create-spotify-playlists-of-the-samples-on-an-album-e3f20187ee5e
+
+# Generator, allows you to go one row at a time
+# Reader accesses each line
+with open("music_library.csv", 'r') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=",")
+   
+    # for loop to print each song ([0]) and artist ([1])
+    # for lines in csv_reader:
+    #    print(lines[0] + " ----- " + lines[1])
+
+
+# client credentials for spotify api
+CLIENT_ID = '2bf03c5de1ee404d981d0ca98621c9b0'
+CLIENT_SECRET = 'ba7feeed441a458aaab62b8176a002f0'
+
+# in order to access the API, we need to pass an access token
+# essentially we just need to POST a request with our client credentials
+# and save the appropriate part of the response:
+
+AUTH_URL = 'https://accounts.spotify.com/api/token'
+
+# POST
+auth_response = requests.post(AUTH_URL, {
+    'grant_type': 'client_credentials',
+    'client_id': CLIENT_ID,
+    'client_secret': CLIENT_SECRET,
+    })
+
+# convert the response to JSON
+auth_response_data = auth_response.json()
+
+# save the access token
+access_token = auth_response_data['access_token']
+
+# base URL of all spotify API endpoints
+BASE_URL = 'https://api.spotify.com/v1/'
+
+# End of the access token request
+
