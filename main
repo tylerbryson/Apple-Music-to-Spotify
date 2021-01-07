@@ -1,11 +1,11 @@
 import csv      # needed to access csv files
 import requests # needed for spotify API
+import json
 
-# references
-# https://stmorse.github.io/journal/spotify-api.html
 # https://medium.com/@adrian_cooney/how-to-move-from-apple-music-to-spotify-6d4192c634b0
-# https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-users-saved-tracks
+# https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-users-saved-tracks - Save Track for user
 # https://towardsdatascience.com/using-python-to-create-spotify-playlists-of-the-samples-on-an-album-e3f20187ee5e
+# https://www.dataquest.io/blog/python-api-tutorial/ - Python API tutorial
 
 # Generator, allows you to go one row at a time
 # Reader accesses each line
@@ -16,6 +16,9 @@ with open("music_library.csv", 'r') as csv_file:
     # for lines in csv_reader:
     #    print(lines[0] + " ----- " + lines[1])
 
+
+# Access token 
+# https://stmorse.github.io/journal/spotify-api.html
 
 # client credentials for spotify api
 CLIENT_ID = '2bf03c5de1ee404d981d0ca98621c9b0'
@@ -32,16 +35,28 @@ auth_response = requests.post(AUTH_URL, {
     'grant_type': 'client_credentials',
     'client_id': CLIENT_ID,
     'client_secret': CLIENT_SECRET,
-    })
+})
 
 # convert the response to JSON
 auth_response_data = auth_response.json()
 
-# save the access token
+# save the access token (golden ticket to API)
 access_token = auth_response_data['access_token']
+
+# in order to access API endpoints, we send a properly formed GET
+# request to the API server, with our token in the header
+headers = {
+    'Authorization': 'Bearer {token}'.format(token=access_token)
+}
 
 # base URL of all spotify API endpoints
 BASE_URL = 'https://api.spotify.com/v1/'
 
-# End of the access token request
+# Track ID from the URI
+track_id = '2X485T9Z5Ly0xyaghN73ed' 
 
+# Actual GET request with proper header
+r = requests.get(BASE_URL + 'audio_features/' + track_id, headers=headers) 
+print(r.status_code)                                                             
+r = r.json()
+r
