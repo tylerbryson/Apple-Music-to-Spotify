@@ -21,8 +21,8 @@ with open("music_library.csv", 'r') as csv_file:
 # https://stmorse.github.io/journal/spotify-api.html
 
 # client credentials for spotify api
-CLIENT_ID = '2bf03c5de1ee404d981d0ca98621c9b0'
-CLIENT_SECRET = 'ba7feeed441a458aaab62b8176a002f0'
+CLIENT_ID = #redacted
+CLIENT_SECRET = #redacted
 
 # in order to access the API, we need to pass an access token
 # essentially we just need to POST a request with our client credentials
