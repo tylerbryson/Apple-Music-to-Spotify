@@ -11,8 +11,8 @@ import json
 # https://stackoverflow.com/questions/64461018/using-python-to-get-a-track-from-the-spotify-api-by-using-search-endpoint - Using python to get a track from spotify API by using search endpoint
 
 # client credentials for spotify api
-CLIENT_ID = #redacted
-CLIENT_SECRET = #redacted
+CLIENT_ID = '2bf03c5de1ee404d981d0ca98621c9b0'
+CLIENT_SECRET = 'f8432d54e3bb420789951a8b38029626'
 
 # in order to access the API, we need to pass an access token
 # we need to POST a request with our client credentials
@@ -51,13 +51,13 @@ SEARCH_QUERY = 'search?q='
 TYPE_TRACK_MARKET = '&type=track&market=US&limit=1'
 
 # Actual GET request with proper header
-# r = requests.get(BASE_URL + SEARCH_QUERY + 'let+it+happen+tame+impala' + TYPE_TRACK_MARKET, headers=headers) 
+#r = requests.get(BASE_URL + SEARCH_QUERY + 'let+it+happen+tame+impala' + TYPE_TRACK_MARKET, headers=headers) 
 
 # print status code for previous request, 200 = good
-# print(r.status_code)    
+#print(r.status_code)    
 
 # print and convert the response to JSON
-# print(r.json())
+#print(r.json())
 
-# put query, add track ID to playlist
-requests.put(BASE_URL + 'me/tracks' + )
+# PUT command, add track ID to playlist
+requests.put('https://api.spotify.com/v1/me/tracks?ids=6K4t31amVTZDgR3sKmwUJJ', headers=headers)
