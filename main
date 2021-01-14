@@ -1,5 +1,6 @@
 import csv      # needed to access csv files
 import requests # needed for spotify API
+import json
 
 # References
 # https://medium.com/@adrian_cooney/how-to-move-from-apple-music-to-spotify-6d4192c634b0 - XML Guideline
@@ -7,6 +8,7 @@ import requests # needed for spotify API
 # https://towardsdatascience.com/using-python-to-create-spotify-playlists-of-the-samples-on-an-album-e3f20187ee5e
 # https://www.dataquest.io/blog/python-api-tutorial/ - Python API beginner tutorial
 # https://stmorse.github.io/journal/spotify-api.html - Access token
+# https://stackoverflow.com/questions/64461018/using-python-to-get-a-track-from-the-spotify-api-by-using-search-endpoint - Using python to get a track from spotify API by using search endpoint
 
 # client credentials for spotify api
 CLIENT_ID = #redacted
@@ -17,13 +19,17 @@ CLIENT_SECRET = #redacted
 # and save the appropriate part of the response:
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
+REDIRECT_URI = 'http://localhost:8888/callback'
 
-# POST
+# POST request
 auth_response = requests.post(AUTH_URL, {
     'grant_type': 'client_credentials',
     'client_id': CLIENT_ID,
     'client_secret': CLIENT_SECRET,
 })
+
+# authorize this app to modify user's library (needed for adding songs)
+requests.get('https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID + '&response_type=code&redirect_uri=' + REDIRECT_URI + '&scope=user-library-modify')
 
 # convert the response to JSON
 auth_response_data = auth_response.json()
@@ -40,12 +46,18 @@ headers = {
 # base URL of all spotify API endpoints
 BASE_URL = 'https://api.spotify.com/v1/'
 
-# Let It Happen - Tame Impala
-# Track ID from the URI
-track_id = '2X485T9Z5Ly0xyaghN73ed' 
+# Search query to automatically search by track & artist
+SEARCH_QUERY = 'search?q='
+TYPE_TRACK_MARKET = '&type=track&market=US&limit=1'
 
 # Actual GET request with proper header
-r = requests.get(BASE_URL + 'audio-features/' + track_id, headers=headers) 
-print(r.status_code)                                                             
-r = r.json()
-r
+# r = requests.get(BASE_URL + SEARCH_QUERY + 'let+it+happen+tame+impala' + TYPE_TRACK_MARKET, headers=headers) 
+
+# print status code for previous request, 200 = good
+# print(r.status_code)    
+
+# print and convert the response to JSON
+# print(r.json())
+
+# put query, add track ID to playlist
+requests.put(BASE_URL + 'me/tracks' + )
